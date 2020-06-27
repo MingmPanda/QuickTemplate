@@ -26,3 +26,7 @@
 2. pom.xml cache相关的jar包支持
 3. CacheManager Bean
 4. 使用注解，标识我们的方法哪些需要缓存
+
+### 使用TraceId实现日志跟踪
+1. 建立一个过滤器，在过滤器中给线程设置TraceId
+2. 将日志配置文件进行修改，把TraceId打印到日志中
