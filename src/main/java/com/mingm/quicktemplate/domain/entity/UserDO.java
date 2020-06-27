@@ -1,9 +1,6 @@
 package com.mingm.quicktemplate.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -49,6 +46,7 @@ public class UserDO implements Serializable {
      */
     private String phone;
 
+
     /*** 系统主信息 ***/
     /**
      * 数据库主键
@@ -59,31 +57,37 @@ public class UserDO implements Serializable {
     /**
      * 数据的创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime created;
 
     /**
      * 数据修改时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime modified;
 
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT)
     private String creator;
 
     /**
      * 最后修改者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String operator;
 
     /**
      * 逻辑删除字段：0：正常，1：逻辑删除
      */
+    @TableField(fill = FieldFill.INSERT)
     private Integer status;
 
     /**
      * 版本号
      */
     @Version
+    @TableField(fill = FieldFill.INSERT)
     private Long version;
 }

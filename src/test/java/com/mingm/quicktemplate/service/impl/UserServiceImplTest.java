@@ -39,7 +39,7 @@ public class UserServiceImplTest {
     @Test
     public void updateTest() {
 
-        Long id = 1234012634597076993L;
+        Long id = 1276918520436805633L;
 
         UserDTO userDTO = new UserDTO();
         userDTO.setPassword("password10000");
@@ -53,7 +53,7 @@ public class UserServiceImplTest {
 
     @Test
     public void deleteTest() {
-        int delete = userService.delete(1234012634597076993L);
+        int delete = userService.delete(1276918520436805633L);
 
         log.info("{}", delete);
     }
