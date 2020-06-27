@@ -1,5 +1,6 @@
 package com.mingm.quicktemplate.domain.common;
 
+import com.mingm.quicktemplate.exception.ErrorCodeEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -50,5 +51,32 @@ public class ResponseResult<T> implements Serializable {
         responseResult.setResult(result);
 
         return responseResult;
+    }
+
+    /**
+     * 失败
+     * @param code
+     * @param message
+     * @param <T>
+     * @return
+     */
+    public static <T> ResponseResult<T> failure(String code, String message) {
+        ResponseResult<T> responseResult = new ResponseResult<>();
+
+        responseResult.setSuccess(Boolean.FALSE);
+        responseResult.setCode(code);
+        responseResult.setMessage(message);
+
+        return responseResult;
+    }
+
+    /**
+     * 失败
+     * @param codeEnum
+     * @param <T>
+     * @return
+     */
+    public static <T> ResponseResult<T> failure(ErrorCodeEnum codeEnum) {
+        return failure(codeEnum.getCode(), codeEnum.getMessage());
     }
 }
