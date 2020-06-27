@@ -10,6 +10,7 @@ import com.mingm.quicktemplate.domain.dto.UserQueryDTO;
 import com.mingm.quicktemplate.domain.entity.UserDO;
 import com.mingm.quicktemplate.mapper.UserMapper;
 import com.mingm.quicktemplate.service.UserService;
+import com.mingm.quicktemplate.util.ValidatorUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResult<List<UserDTO>> query(PageQuery<UserQueryDTO> pageQuery) {
+
+        // 手动校验功能
+        ValidatorUtils.validate(pageQuery);
 
         // 参数构造
         Page page = new Page(pageQuery.getPageNo(), pageQuery.getPageSize());

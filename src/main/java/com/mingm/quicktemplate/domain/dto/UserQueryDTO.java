@@ -2,6 +2,7 @@ package com.mingm.quicktemplate.domain.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
@@ -21,5 +22,6 @@ public class UserQueryDTO implements Serializable {
     /**
      * 用户名
      */
+    @NotEmpty(message = "用户姓名不能为空！")
     private String username;
 }
