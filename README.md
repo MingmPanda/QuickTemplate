@@ -17,3 +17,12 @@
 
 ### 实现统一异常处理功能
 1. 实现一个异常处理的类，并且用@ControllerAdvice修饰
+
+### 集成CaffeineCache缓存功能
+1. 
+    @Cacheable : 缓存数据，一般用在查询方法上。将查询到的数据进行缓存 
+    @CachePut : 更新方法上，将数据从缓存中进行更新
+    @CacheEvict : 删除缓存
+2. pom.xml cache相关的jar包支持
+3. CacheManager Bean
+4. 使用注解，标识我们的方法哪些需要缓存

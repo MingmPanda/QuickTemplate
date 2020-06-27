@@ -13,6 +13,8 @@ import com.mingm.quicktemplate.util.UpdateValidationGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +45,7 @@ public class UserController {
      * POST /api/users UserDTO
      * @return
      */
+    @CacheEvict(cacheNames = "users-cache", allEntries = true)
     @PostMapping
     public ResponseResult save(
             @Validated(InsertValidationGroup.class)
@@ -97,11 +100,14 @@ public class UserController {
      * GET
      * @return
      */
+    @Cacheable(cacheNames = "users-cache")
     @GetMapping
     public ResponseResult<PageResult> query(
             @NotNull Integer pageNo,
             @NotNull Integer pageSize,
             @Validated UserQueryDTO query) {
+
+        log.info("未使用缓存！");
 
         // 构造查询条件
         PageQuery<UserQueryDTO> pageQuery = new PageQuery<>();
