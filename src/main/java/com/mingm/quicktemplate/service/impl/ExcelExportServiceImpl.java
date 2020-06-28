@@ -14,6 +14,7 @@ import com.mingm.quicktemplate.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -97,7 +98,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
         excelWriter.finish();
 
         log.info("完成导出！");
-        
+
     }
 
     @Override
@@ -114,5 +115,16 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
         // step2. 实现文件上传
         fileService.upload(inputStream, filename);
+    }
+
+    /**
+     * 借助@Async注解，使用线程池执行方法
+     * @param query
+     * @param filename
+     */
+    @Async("exportServiceExecutor")
+    @Override
+    public void asyncExport(UserQueryDTO query, String filename) {
+        export(query, filename);
     }
 }

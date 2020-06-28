@@ -167,7 +167,8 @@ public class UserController {
         log.info("接受到导出请求！filename = {}", filename);
 
         // 数据导出
-        excelExportService.export(query, filename);
+//        excelExportService.export(query, filename);
+        excelExportService.asyncExport(query, filename);
 
         return ResponseResult.success(Boolean.TRUE);
     }
