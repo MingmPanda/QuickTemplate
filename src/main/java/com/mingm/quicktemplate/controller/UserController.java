@@ -7,6 +7,7 @@ import com.mingm.quicktemplate.domain.dto.UserDTO;
 import com.mingm.quicktemplate.domain.dto.UserQueryDTO;
 import com.mingm.quicktemplate.domain.vo.UserVO;
 import com.mingm.quicktemplate.exception.ErrorCodeEnum;
+import com.mingm.quicktemplate.service.ExcelExportService;
 import com.mingm.quicktemplate.service.UserService;
 import com.mingm.quicktemplate.util.InsertValidationGroup;
 import com.mingm.quicktemplate.util.UpdateValidationGroup;
@@ -19,6 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ExcelExportService excelExportService;
 
 
     /**
@@ -148,4 +153,22 @@ public class UserController {
         return ResponseResult.success(result);
     }
 
+    /**
+     * 用户数据导出
+     * @param query
+     * @param filename
+     * @return
+     */
+    @GetMapping("/export")
+    public ResponseResult<Boolean> export(
+            @Validated UserQueryDTO query,
+            @NotEmpty String filename) {
+
+        log.info("接受到导出请求！filename = {}", filename);
+
+        // 数据导出
+        excelExportService.export(query, filename);
+
+        return ResponseResult.success(Boolean.TRUE);
+    }
 }
