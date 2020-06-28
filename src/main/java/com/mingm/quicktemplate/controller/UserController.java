@@ -11,6 +11,7 @@ import com.mingm.quicktemplate.service.ExcelExportService;
 import com.mingm.quicktemplate.service.UserService;
 import com.mingm.quicktemplate.util.InsertValidationGroup;
 import com.mingm.quicktemplate.util.UpdateValidationGroup;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,12 @@ import java.util.stream.Stream;
 @RequestMapping("/api/users")
 @Validated
 @Slf4j
+@Api(
+        value = "用户管理Controller",
+        tags = {"用户管理Controller"},
+        protocols = "http, https",
+        hidden = false
+)
 public class UserController {
 
     @Autowired
@@ -70,6 +77,34 @@ public class UserController {
      * @return
      */
     @PutMapping("/{id}")
+    @ApiOperation(
+            value = "更新用户信息",
+            notes = "备注说明信息",
+            response = ResponseResult.class,
+            httpMethod = "PUT"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "id",
+                    value = "参数说明，用户主键",
+                    required = true,
+                    paramType = "path",
+                    dataType = "Long",
+                    example = "12345"
+            ),
+            @ApiImplicitParam(
+                    name = "userDTO",
+                    value = "用户信息",
+                    required = true,
+                    paramType = "body",
+                    dataType = "UserDTO",
+                    dataTypeClass = UserDTO.class
+            )
+    })
+    @ApiResponses({
+            @ApiResponse(code = 0000, message = "操作成功"),
+            @ApiResponse(code = 3004, message = "更新失败")
+    })
     public ResponseResult update(
             @NotNull @PathVariable("id") Long id,
             @Validated(UpdateValidationGroup.class) @RequestBody UserDTO userDTO) {
